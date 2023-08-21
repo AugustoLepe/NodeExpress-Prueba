@@ -5,7 +5,7 @@ const server = require("../index");
 describe("Operaciones CRUD de cafes", () => {
 
     it("Obtener status code 200 al consultar listado de cafés", async () => {
-        const res = await request(server).get("/coffee").send();
+        const res = await request(server).get("/cafes").send();
         const status = res.statusCode;
         const producto = res.body;
         const charLength = producto.length;
@@ -17,7 +17,7 @@ describe("Operaciones CRUD de cafes", () => {
     it("Obtener status code 404 al eliminar producto con ID inexistente", async () => {
         const jwt = "token";
         const idToDelete = "123456";
-        const res = await request(server).delete(`/coffee/${idToDelete}`).set("Authorization", jwt).send();
+        const res = await request(server).delete(`/cafes/${idToDelete}`).set("Authorization", jwt).send();
         expect(res.statusCode).toBe(404);
     })
 
@@ -31,7 +31,7 @@ describe("Operaciones CRUD de cafes", () => {
     it('Obtener status code 400 actualizando tipo de café con ID erróneo', async () => {
         const id = "4";
         const cafe = { id: 123456, nombre: "Capuccino" };
-        const res = await request(server).put(`/coffee/${id}`).send(cafe);
+        const res = await request(server).put(`/cafes/${id}`).send(cafe);
         const status = res.statusCode;
         expect(status).toBe(400);
     })
